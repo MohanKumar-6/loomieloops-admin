@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { ArrowRight, Lock, Mail } from "lucide-react";
-import api from "../lib/api";
+import api, { API_BASE_URL } from "../lib/api";
 import { useAuth } from "../lib/auth";
 
 export function LoginPage() {
@@ -26,7 +26,7 @@ export function LoginPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       });
-      const data = await response.json();
+      const data = await response.json().catch(() => ({}));
       if (!response.ok) {
         setError(data.message || "Login failed");
         return;
@@ -38,7 +38,7 @@ export function LoginPage() {
       login(data.token, data.user);
       navigate({ to: "/" });
     } catch {
-      setError("An error occurred. Please try again.");
+      setError(`Cannot reach the API at ${API_BASE_URL}. Check your connection or VITE_API_URL.`);
     } finally {
       setLoading(false);
     }

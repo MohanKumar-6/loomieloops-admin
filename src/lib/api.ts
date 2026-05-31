@@ -1,4 +1,15 @@
-const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3001/api";
+const PRODUCTION_API = "https://loomieloops-api-production.up.railway.app/api";
+
+function resolveApiBaseUrl(): string {
+  if (import.meta.env.VITE_API_URL) return import.meta.env.VITE_API_URL;
+  if (typeof window !== "undefined") {
+    const host = window.location.hostname;
+    if (host !== "localhost" && host !== "127.0.0.1") return PRODUCTION_API;
+  }
+  return "http://localhost:3001/api";
+}
+
+export const API_BASE_URL = resolveApiBaseUrl();
 
 export const api = {
   auth: {
