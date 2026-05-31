@@ -24,11 +24,14 @@ export function LoginPage() {
       const response = await fetch(api.auth.login, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email: email.trim().toLowerCase(), password }),
       });
       const data = await response.json().catch(() => ({}));
       if (!response.ok) {
-        setError(data.message || "Login failed");
+        setError(
+          data.message ||
+            `Login failed (${response.status}). API: ${api.auth.login}`,
+        );
         return;
       }
       if (data.user.role !== "admin") {

@@ -1,9 +1,19 @@
 const PRODUCTION_API = "https://loomieloops-api-production.up.railway.app/api";
 const LOCAL_API = "http://localhost:3001/api";
 
-/** Resolved at build time for prod; VITE_API_URL overrides both. */
-export const API_BASE_URL =
-  import.meta.env.VITE_API_URL || (import.meta.env.PROD ? PRODUCTION_API : LOCAL_API);
+function normalizeApiBaseUrl(raw: string): string {
+  let url = raw.trim();
+  if (!url) return url;
+  if (!/^https?:\/\//i.test(url)) url = `https://${url}`;
+  url = url.replace(/\/+$/, "");
+  if (!url.endsWith("/api")) url = `${url}/api`;
+  return url;
+}
+
+/** Resolved at build time for prod; VITE_API_URL overrides both (normalized). */
+export const API_BASE_URL = normalizeApiBaseUrl(
+  import.meta.env.VITE_API_URL || (import.meta.env.PROD ? PRODUCTION_API : LOCAL_API),
+);
 
 export const api = {
   auth: {
