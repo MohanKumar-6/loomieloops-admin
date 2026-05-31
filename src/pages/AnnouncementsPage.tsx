@@ -112,7 +112,7 @@ export function AnnouncementsPage() {
                 <button onClick={() => toggleActive(item)} className="nb-btn nb-btn-sm nb-btn-yellow">
                   {item.isActive ? "Deactivate" : "Activate"}
                 </button>
-                <button onClick={() => handleDelete(item.id)} className="nb-btn nb-btn-sm bg-white">
+                <button onClick={() => handleDelete(item.id)} className="nb-btn nb-btn-sm bg-orange/30 hover:bg-orange/50">
                   Delete
                 </button>
               </div>

@@ -51,7 +51,7 @@ export function AdminLayout() {
           key={to}
           to={to}
           onClick={() => setMenuOpen(false)}
-          className="flex items-center gap-3 px-4 py-3 font-extrabold text-[13px] uppercase tracking-[1px] border-[3px] border-transparent hover:bg-yellow hover:border-ink transition-colors [&.active]:bg-yellow [&.active]:border-ink [&.active]:nb-shadow"
+              className="flex items-center gap-3 px-3 py-2.5 font-extrabold text-[11px] uppercase tracking-[1px] border-[3px] border-transparent hover:bg-yellow hover:border-ink transition-colors [&.active]:bg-yellow [&.active]:border-ink [&.active]:nb-shadow"
         >
           <Icon size={18} className="shrink-0" />
           <span className="truncate">{label}</span>
@@ -64,11 +64,11 @@ export function AdminLayout() {
     <div className="min-h-screen flex flex-col md:flex-row bg-paper text-ink overflow-x-hidden">
       {/* Mobile top bar */}
       <header className="md:hidden sticky top-0 z-40 flex items-center justify-between gap-3 bg-pink border-b-[3px] border-ink px-4 py-3 min-w-0">
-        <h1 className="font-display text-2xl tracking-wider truncate">LOOMIE ADMIN</h1>
+          <h1 className="font-display text-xl tracking-wider truncate">LOOMIE ADMIN</h1>
         <button
           type="button"
           onClick={() => setMenuOpen((o) => !o)}
-          className="nb-btn nb-btn-sm shrink-0 bg-white p-2"
+          className="nb-btn nb-btn-sm shrink-0 bg-yellow p-2"
           aria-label={menuOpen ? "Close menu" : "Open menu"}
         >
           {menuOpen ? <X size={18} /> : <Menu size={18} />}
@@ -98,7 +98,7 @@ export function AdminLayout() {
       >
         <div className="p-4 sm:p-6 border-b-[3px] border-ink min-w-0">
           <div className="hidden md:block">
-            <h1 className="font-display text-3xl tracking-wider">LOOMIE ADMIN</h1>
+            <h1 className="font-display text-2xl tracking-wider">LOOMIE ADMIN</h1>
           </div>
           {user && (
             <p className="font-mono text-xs uppercase tracking-wider mt-0 md:mt-2 opacity-70 truncate">
@@ -113,7 +113,7 @@ export function AdminLayout() {
           <button
             type="button"
             onClick={handleLogout}
-            className="nb-btn nb-btn-sm w-full justify-center gap-2 bg-white hover:bg-orange/20"
+            className="nb-btn nb-btn-sm w-full justify-center gap-2 bg-cyan hover:bg-lime"
           >
             <LogOut size={14} /> Sign Out
           </button>

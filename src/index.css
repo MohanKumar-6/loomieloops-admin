@@ -5,7 +5,8 @@
   --font-body: "Archivo", sans-serif;
   --font-mono: "DM Mono", monospace;
   --color-ink: #0a0a0a;
-  --color-paper: #fafaf5;
+  --color-paper: var(--paper);
+  --color-surface: var(--surface);
   --color-pink: #ff3fa4;
   --color-cyan: #00d4d4;
   --color-lime: #c5e84a;
@@ -15,7 +16,9 @@
 
 :root {
   --ink: #0a0a0a;
-  --paper: #fafaf5;
+  --paper: #f5efd6;
+  --surface: #ede8c8;
+  --muted: #e0d9bc;
   --pink: #ff3fa4;
   --cyan: #00d4d4;
   --lime: #c5e84a;
@@ -35,6 +38,7 @@
     background-color: var(--paper);
     color: var(--ink);
     font-family: var(--font-body);
+    font-size: 14px;
     -webkit-font-smoothing: antialiased;
   }
   h1, h2, h3, h4 {
@@ -50,40 +54,68 @@
   .nb-shadow-lg { box-shadow: 6px 6px 0 var(--ink); }
 
   .nb-btn {
-    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-    padding: 14px 28px; font-weight: 800; font-size: 14px;
-    text-transform: uppercase; letter-spacing: 1px;
-    border: 3px solid var(--ink); box-shadow: 4px 4px 0 var(--ink);
+    display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+    padding: 10px 18px; font-weight: 800; font-size: 12px;
+    text-transform: uppercase; letter-spacing: 0.5px;
+    border: 3px solid var(--ink); box-shadow: 3px 3px 0 var(--ink);
     cursor: pointer; transition: all 0.1s; text-decoration: none;
-    background: var(--paper); color: var(--ink); font-family: var(--font-body);
+    background: var(--surface); color: var(--ink); font-family: var(--font-body);
   }
-  .nb-btn:hover { box-shadow: 2px 2px 0 var(--ink); transform: translate(2px, 2px); }
+  .nb-btn:hover { box-shadow: 1px 1px 0 var(--ink); transform: translate(2px, 2px); }
   .nb-btn-primary { background: var(--ink); color: var(--paper); }
   .nb-btn-pink { background: var(--pink); color: var(--ink); }
   .nb-btn-cyan { background: var(--cyan); color: var(--ink); }
   .nb-btn-lime { background: var(--lime); color: var(--ink); }
   .nb-btn-yellow { background: var(--yellow); color: var(--ink); }
-  .nb-btn-sm { padding: 7px 14px; font-size: 11px; box-shadow: 2px 2px 0 var(--ink); }
+  .nb-btn-sm { padding: 6px 12px; font-size: 10px; box-shadow: 2px 2px 0 var(--ink); }
 
   .nb-tag {
-    display: inline-block; padding: 5px 14px;
-    font-weight: 800; font-size: 11px; text-transform: uppercase; letter-spacing: 2px;
-    border: 3px solid var(--ink); box-shadow: 4px 4px 0 var(--ink);
+    display: inline-block; padding: 4px 10px;
+    font-weight: 800; font-size: 9px; text-transform: uppercase; letter-spacing: 1.5px;
+    border: 3px solid var(--ink); box-shadow: 3px 3px 0 var(--ink);
     background: var(--yellow); color: var(--ink);
   }
   .nb-input {
-    width: 100%; max-width: 100%; padding: 12px 14px;
-    border: 3px solid var(--ink); background: var(--paper);
-    font-family: var(--font-body); font-size: 16px; color: var(--ink);
-    box-shadow: 4px 4px 0 var(--ink); outline: none;
+    width: 100%; max-width: 100%; padding: 10px 12px;
+    border: 3px solid var(--ink); background: var(--surface);
+    font-family: var(--font-body); font-size: 14px; color: var(--ink);
+    box-shadow: 3px 3px 0 var(--ink); outline: none;
     box-sizing: border-box;
   }
-  .nb-input:focus { box-shadow: 4px 4px 0 var(--pink); border-color: var(--pink); }
+  .nb-input:focus { box-shadow: 3px 3px 0 var(--pink); border-color: var(--pink); }
   .nb-card {
-    background: var(--paper); border: 3px solid var(--ink);
-    box-shadow: 6px 6px 0 var(--ink);
+    background: var(--surface); border: 3px solid var(--ink);
+    box-shadow: 4px 4px 0 var(--ink);
     max-width: 100%;
     box-sizing: border-box;
+  }
+
+  .nb-progress {
+    height: 16px;
+    border: 3px solid var(--ink);
+    background: var(--surface);
+    box-shadow: 2px 2px 0 var(--ink);
+    overflow: hidden;
+  }
+  .nb-progress-fill {
+    height: 100%;
+    border-right: 3px solid var(--ink);
+    transition: width 0.15s ease-out;
+  }
+
+  .nb-upload-zone {
+    border: 3px dashed var(--ink);
+    background: var(--surface);
+    box-shadow: 4px 4px 0 var(--ink);
+    padding: 1.75rem 1rem;
+    text-align: center;
+    transition: background 0.1s, box-shadow 0.1s, transform 0.1s;
+  }
+  .nb-upload-zone:hover,
+  .nb-upload-zone-active {
+    background: var(--yellow);
+    box-shadow: 2px 2px 0 var(--ink);
+    transform: translate(2px, 2px);
   }
 
   .page-shell {
@@ -105,6 +137,7 @@
 
 @layer utilities {
   .bg-paper { background-color: var(--paper); }
+  .bg-surface { background-color: var(--surface); }
   .bg-ink { background-color: var(--ink); }
   .bg-pink { background-color: var(--pink); }
   .bg-cyan { background-color: var(--cyan); }
