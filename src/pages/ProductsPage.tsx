@@ -5,6 +5,7 @@ import { useAuth } from "../lib/auth";
 import { PageHeader } from "../components/PageHeader";
 import { TableScroll } from "../components/TableScroll";
 import { ProductForm, type ProductFormData } from "../components/ProductForm";
+import { squareImageUrl } from "../lib/productImage";
 
 type Product = {
   id: string;
@@ -14,6 +15,11 @@ type Product = {
   images?: string[];
   category: string;
   stock: number;
+  description?: string | null;
+  dimensions?: string | null;
+  material?: string | null;
+  care?: string | null;
+  color?: string | null;
 };
 
 const emptyForm: ProductFormData = {
@@ -23,6 +29,11 @@ const emptyForm: ProductFormData = {
   category: "",
   stock: "0",
   images: [],
+  description: "",
+  dimensions: "",
+  material: "",
+  care: "",
+  color: "",
 };
 
 export function ProductsPage() {
@@ -72,6 +83,11 @@ export function ProductsPage() {
         category: editing.category,
         stock: String(editing.stock),
         images: editing.images?.length ? editing.images : editing.image ? [editing.image] : [],
+        description: editing.description ?? "",
+        dimensions: editing.dimensions ?? "",
+        material: editing.material ?? "",
+        care: editing.care ?? "",
+        color: editing.color ?? "",
       }
     : emptyForm;
 
@@ -143,7 +159,11 @@ export function ProductsPage() {
                   <tr key={p.id}>
                     <td className="px-3 py-2">
                       {thumb ? (
-                        <img src={thumb} alt="" className="w-10 h-10 object-cover border-2 border-ink" />
+                        <img
+                          src={squareImageUrl(thumb, 128)}
+                          alt=""
+                          className="w-10 h-10 object-cover object-center aspect-square border-2 border-ink"
+                        />
                       ) : (
                         <div className="w-10 h-10 bg-yellow/50 border-2 border-ink" />
                       )}

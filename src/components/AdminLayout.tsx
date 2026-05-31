@@ -19,7 +19,7 @@ const nav = [
   { to: "/orders", label: "Orders", icon: ShoppingCart },
   { to: "/users", label: "Users", icon: Users },
   { to: "/announcements", label: "Announcements", icon: Megaphone },
-  { to: "/settings", label: "Hero Settings", icon: Settings },
+  { to: "/settings", label: "Site Settings", icon: Settings },
 ] as const;
 
 export function AdminLayout() {

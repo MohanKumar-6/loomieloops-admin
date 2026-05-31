@@ -11,6 +11,11 @@ export type ProductFormData = {
   category: string;
   stock: string;
   images: string[];
+  description: string;
+  dimensions: string;
+  material: string;
+  care: string;
+  color: string;
 };
 
 type ProductFormProps = {
@@ -50,6 +55,11 @@ export function ProductForm({ token, editingId, initial, onSaved, onCancel }: Pr
         category: form.category,
         stock: Number(form.stock),
         images,
+        description: form.description,
+        dimensions: form.dimensions,
+        material: form.material,
+        care: form.care,
+        color: form.color,
       };
       if (editingId) {
         await adminFetch(api.admin.product(editingId), token, {
@@ -69,6 +79,9 @@ export function ProductForm({ token, editingId, initial, onSaved, onCancel }: Pr
       setSaving(false);
     }
   };
+
+  const set = (key: keyof ProductFormData, value: string) =>
+    setForm((f) => ({ ...f, [key]: value }));
 
   return (
     <div className="nb-card p-4 sm:p-6 mb-6 sm:mb-8 min-w-0">
@@ -96,8 +109,8 @@ export function ProductForm({ token, editingId, initial, onSaved, onCancel }: Pr
               <input
                 className="nb-input"
                 value={form.name}
-                onChange={(e) => setForm({ ...form, name: e.target.value })}
-                placeholder="Hot Pink Disco"
+                onChange={(e) => set("name", e.target.value)}
+                placeholder="Hot Pink Disco Tote"
                 required
               />
             </div>
@@ -108,7 +121,7 @@ export function ProductForm({ token, editingId, initial, onSaved, onCancel }: Pr
                 value={form.id}
                 onChange={(e) => {
                   setAutoSlug(false);
-                  setForm({ ...form, id: e.target.value });
+                  set("id", e.target.value);
                 }}
                 disabled={!!editingId}
                 required
@@ -119,8 +132,8 @@ export function ProductForm({ token, editingId, initial, onSaved, onCancel }: Pr
               <input
                 className="nb-input"
                 value={form.category}
-                onChange={(e) => setForm({ ...form, category: e.target.value })}
-                placeholder="merino"
+                onChange={(e) => set("category", e.target.value)}
+                placeholder="bags"
                 required
               />
             </div>
@@ -129,7 +142,7 @@ export function ProductForm({ token, editingId, initial, onSaved, onCancel }: Pr
               <input
                 className="nb-input"
                 value={form.price}
-                onChange={(e) => setForm({ ...form, price: e.target.value })}
+                onChange={(e) => set("price", e.target.value)}
                 placeholder="2499"
                 required
               />
@@ -141,7 +154,52 @@ export function ProductForm({ token, editingId, initial, onSaved, onCancel }: Pr
                 min={0}
                 className="nb-input"
                 value={form.stock}
-                onChange={(e) => setForm({ ...form, stock: e.target.value })}
+                onChange={(e) => set("stock", e.target.value)}
+              />
+            </div>
+            <div className="min-w-0">
+              <label className="block text-[10px] font-extrabold uppercase mb-1.5">Color</label>
+              <input
+                className="nb-input"
+                value={form.color}
+                onChange={(e) => set("color", e.target.value)}
+                placeholder="Hot pink"
+              />
+            </div>
+            <div className="min-w-0 sm:col-span-2">
+              <label className="block text-[10px] font-extrabold uppercase mb-1.5">Description</label>
+              <textarea
+                className="nb-input min-h-[100px] resize-y"
+                value={form.description}
+                onChange={(e) => set("description", e.target.value)}
+                placeholder="Hand-crocheted tote with sturdy handles..."
+              />
+            </div>
+            <div className="min-w-0">
+              <label className="block text-[10px] font-extrabold uppercase mb-1.5">Dimensions</label>
+              <input
+                className="nb-input"
+                value={form.dimensions}
+                onChange={(e) => set("dimensions", e.target.value)}
+                placeholder="35 × 40 cm"
+              />
+            </div>
+            <div className="min-w-0">
+              <label className="block text-[10px] font-extrabold uppercase mb-1.5">Material</label>
+              <input
+                className="nb-input"
+                value={form.material}
+                onChange={(e) => set("material", e.target.value)}
+                placeholder="Cotton blend yarn"
+              />
+            </div>
+            <div className="min-w-0 sm:col-span-2">
+              <label className="block text-[10px] font-extrabold uppercase mb-1.5">Care</label>
+              <input
+                className="nb-input"
+                value={form.care}
+                onChange={(e) => set("care", e.target.value)}
+                placeholder="Hand wash, lay flat to dry"
               />
             </div>
           </div>

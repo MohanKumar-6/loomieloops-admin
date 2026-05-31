@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ImagePlus, Trash2, GripVertical, Star } from "lucide-react";
 import { cropImageToSquare, blobToBase64 } from "../lib/imageUtils";
+import { squareImageUrl } from "../lib/productImage";
 import { uploadProductImage } from "../lib/uploadImage";
 import { NbProgressBar } from "./NbProgressBar";
 
@@ -179,7 +180,9 @@ export function ProductImageUploader({ token, images, onChange, disabled }: Prod
       >
         <ImagePlus size={28} className="mx-auto mb-2 opacity-70" />
         <p className="font-extrabold text-xs uppercase tracking-wide">Drop images or click to browse</p>
-        <p className="font-mono text-[10px] uppercase mt-1 opacity-60">Multiple files · cropped to square</p>
+        <p className="font-mono text-[10px] uppercase mt-1 opacity-60">
+          Square images only · center-cropped to 1:1
+        </p>
         <input
           ref={inputRef}
           type="file"
@@ -219,7 +222,11 @@ export function ProductImageUploader({ token, images, onChange, disabled }: Prod
             >
               <div className="relative aspect-square bg-yellow/40 border-b-[3px] border-ink">
                 {item.preview ? (
-                  <img src={item.preview} alt="" className="w-full h-full object-cover" />
+                  <img
+                    src={item.preview.startsWith("blob:") ? item.preview : squareImageUrl(item.preview, 400)}
+                    alt=""
+                    className="absolute inset-0 h-full w-full object-cover object-center"
+                  />
                 ) : (
                   <div className="w-full h-full grid place-items-center font-mono text-[10px] uppercase opacity-50">
                     Processing
